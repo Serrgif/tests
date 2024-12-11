@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+}
+
+group = 'ru.netology'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    compileOnly 'org.projectlombok:lombok:1.18.32'
+    annotationProcessor 'org.projectlombok:lombok:1.18.32'
+    testCompileOnly 'org.projectlombok:lombok:1.18.32'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.32'
+
+    implementation 'mysql:mysql-connector-java:8.0.33'
+    testImplementation 'org.testng:testng:7.7.1' // Обновлено до 7.7.1
+    implementation 'com.codeborne:selenide:6.16.0' // Обновлено до 6.16.0
+    testImplementation 'io.rest-assured:rest-assured:5.2.0' // Обновлено до 5.2.0
+    implementation 'com.google.code.gson:gson:2.10.1' // Обновлено до 2.10.1
+    implementation 'org.postgresql:postgresql:42.6.0' // Обновлено до 42.6.0
+    implementation 'com.github.javafaker:javafaker:1.0.2'
+    implementation 'org.slf4j:slf4j-simple:2.0.7'
+
+    // Удалены дублирующиеся и устаревшие зависимости
+    // Используйте последнюю версию
+    implementation 'commons-dbutils:commons-dbutils:1.7'
+    implementation 'io.github.bonigarcia:webdrivermanager:5.7.0' // Обновлено до 5.7.0
+}
+
+test {
+    useJUnitPlatform()
+    systemProperty 'selenide.headless', System.getProperty('selenide.headless')
+    systemProperty 'db.url', System.getProperty('db.url', 'jdbc:mysql://localhost:3306/app')
+    systemProperty 'db.user', System.getProperty('db.user', "app")
+    systemProperty 'db.password', System.getProperty('db.password', "pass")
+}
