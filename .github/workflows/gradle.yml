@@ -19,7 +19,7 @@ jobs:
       - name: Container start
         uses: hoverkraft-tech/compose-action@v2.0.1
 
-      - name: Waiting for сontainer start
+      - name: Waiting for container start
         run: sleep 10
 
       - name: Start SUT
@@ -44,7 +44,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: allure-report
-          path: build/allure-results
+          path: build/allure-report # Загрузка HTML-отчета
 
       - name: List allure results
         run: ls -R build/allure-results
