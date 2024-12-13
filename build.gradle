@@ -5,8 +5,13 @@ plugins {
 
 group = 'ru.netology'
 version = '1.0-SNAPSHOT'
+tasks.named('test') {
+    finalizedBy 'allureReport' // Запускаем отчет после тестов
+}
+
 allure {
     version = '2.20.1'
+    aspectjweaver = true // Если требуется
     useJUnit5 {
         version = '2.20.1'
     }

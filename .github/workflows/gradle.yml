@@ -26,4 +26,13 @@ jobs:
         run: java -jar ./artifacts/aqa-shop.jar &
 
       - name: Build with Gradle
-        run: ./gradlew test --info -Dselenide.headless=true || true  # Добавлен || true
+        run: ./gradlew test --info -Dselenide.headless=true
+
+      - name: Generate Allure Report
+        run: ./gradlew allureReport
+
+      - name: Upload Allure Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: allure-report
+          path: build/allure-report
