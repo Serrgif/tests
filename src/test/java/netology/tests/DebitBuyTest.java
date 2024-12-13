@@ -13,17 +13,6 @@ import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DebitBuyTest {
-
-    @BeforeAll
-    static void setUpAll() {
-        SelenideLogger.addListener("allure", new AllureSelenide());
-    }
-
-    @AfterAll
-    static void tearDownAll() {
-        SelenideLogger.removeListener("allure");
-    }
-
     @BeforeEach
     void setup() {
         open("http://localhost:9999");
@@ -38,7 +27,15 @@ public class DebitBuyTest {
     public void cleanBase() {
         BdSqlHelper.clearDB();
     }
+    @BeforeAll
+    static void setUpAll() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
+    }
 
+    @AfterAll
+    static void tearDownAll() {
+        SelenideLogger.removeListener("allure");
+    }
     @Test
     void buyPositiveAllFieldValidApproved() {
         val startPage = new DebitBuy();
