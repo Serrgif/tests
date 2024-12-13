@@ -1,24 +1,18 @@
 plugins {
     id 'java'
-    id 'io.qameta.allure' version '2.8.1' // Добавление плагина Allure
-    id 'io.freefair.lombok' version '5.2.1' // Добавление плагина Lombok
+    id 'io.qameta.allure' version '2.11.2'
 }
 
 group = 'ru.netology'
 version = '1.0-SNAPSHOT'
-
+allure {
+    version = '2.20.1'
+    useJUnit5 {
+        version = '2.20.1'
+    }
+}
 repositories {
     mavenCentral()
-}
-configurations {
-    testCompile
-}
-
-allure {
-    version = '2.13.6' // Версия Allure
-    useJUnit5 {
-        version = '2.13.6' // Версия JUnit5 для Allure
-    }
 }
 
 dependencies {
@@ -27,22 +21,24 @@ dependencies {
 
     compileOnly 'org.projectlombok:lombok:1.18.32'
     annotationProcessor 'org.projectlombok:lombok:1.18.32'
-    testCompileOnly 'org.projectlombok:lombok:1.18.32' // Это можно оставить, если вам нужно, но лучше заменить на testImplementation
-
+    testCompileOnly 'org.projectlombok:lombok:1.18.32'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.32'
 
     implementation 'mysql:mysql-connector-java:8.0.33'
-    testImplementation 'org.testng:testng:7.7.1'
-    implementation 'com.codeborne:selenide:6.16.0'
-    testImplementation 'io.rest-assured:rest-assured:5.2.0'
-    implementation 'com.google.code.gson:gson:2.10.1'
-    implementation 'org.postgresql:postgresql:42.6.0'
+    testImplementation 'org.testng:testng:7.7.1' // Обновлено до 7.7.1
+    implementation 'com.codeborne:selenide:6.16.0' // Обновлено до 6.16.0
+    testImplementation 'io.rest-assured:rest-assured:5.2.0' // Обновлено до 5.2.0
+    implementation 'com.google.code.gson:gson:2.10.1' // Обновлено до 2.10.1
+    implementation 'org.postgresql:postgresql:42.6.0' // Обновлено до 42.6.0
     implementation 'com.github.javafaker:javafaker:1.0.2'
     implementation 'org.slf4j:slf4j-simple:2.0.7'
-    implementation 'commons-dbutils:commons-dbutils:1.7'
-    implementation 'io.github.bonigarcia:webdrivermanager:5.7.0'
+
+    // Удалены дублирующиеся и устаревшие зависимости
+    // Используйте последнюю версию
     testImplementation 'io.qameta.allure:allure-selenide:2.20.1'
-    }
+    implementation 'commons-dbutils:commons-dbutils:1.7'
+    implementation 'io.github.bonigarcia:webdrivermanager:5.7.0' // Обновлено до 5.7.0
+}
 
 test {
     useJUnitPlatform()

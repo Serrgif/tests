@@ -16,8 +16,14 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
+      - name: Container start
+        uses: hoverkraft-tech/compose-action@v2.0.1
+
+      - name: Waiting for сontainer start
+        run: sleep 10
+
       - name: Start SUT
-        run: java -jar ./artifacts/app-replan-delivery.jar &
+        run: java -jar ./artifacts/aqa-shop.jar &
 
       - name: Build with Gradle
         run: ./gradlew test --info -Dselenide.headless=true
@@ -32,16 +38,13 @@ jobs:
           fi
 
       - name: Generate Allure report
-        run: ./gradlew allureReport || true # Игнорировать ошибки при генерации отчета
+        run: ./gradlew allureReport
 
-      - name: List allure results after report generation
-        run: ls -R build/allure-results || echo "No allure results found"
-
-      - name: Upload Allure results
+      - name: Upload Allure report
         uses: actions/upload-artifact@v3
         with:
           name: allure-report
           path: build/allure-results
 
-      - name: List allure results before upload
-        run: ls -R build/allure-results || echo "No allure results found"
+      - name: List allure results
+        run: ls -R build/allure-results
