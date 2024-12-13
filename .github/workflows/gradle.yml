@@ -22,7 +22,7 @@ jobs:
         uses: hoverkraft-tech/compose-action@v2.0.1
 
       - name: Waiting for сontainer start
-        run: sleep 20
+        run: sleep 10
 
       - name: Start SUT
         run: java -jar ./artifacts/aqa-shop.jar -P:jdbc.url=jdbc:mysql://localhost:3306/db -P:jdbc.user=app -P:jdbc.password=pass &
