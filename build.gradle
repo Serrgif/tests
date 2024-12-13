@@ -44,6 +44,7 @@ dependencies {
     implementation 'commons-dbutils:commons-dbutils:1.7'
     implementation 'io.github.bonigarcia:webdrivermanager:5.7.0'
     testImplementation 'io.qameta.allure:allure-junit5:2.20.1'// Обновлено до 5.7.0
+
 }
 
 test {

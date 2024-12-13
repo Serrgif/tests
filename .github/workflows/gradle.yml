@@ -24,15 +24,18 @@ jobs:
 
       - name: Start SUT
         run: java -jar ./artifacts/aqa-shop.jar &
-        
+
       - name: Build and run tests
         run: ./gradlew test --info -Dselenide.headless=true
 
-      - name: Generate Allure Report
-        run: ./gradlew allureReport
+      - name: List reports directory
+        run: ls -R build/reports/
 
-      - name: List files in build directory
-        run: ls -R build/
+      - name: Generate Allure Report
+        run: ./gradlew allureReport --info
+
+      - name: List files in allure-report directory
+        run: ls -R build/allure-report/
 
       - name: Upload Allure Report
         uses: actions/upload-artifact@v3
