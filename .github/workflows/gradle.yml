@@ -42,11 +42,17 @@ jobs:
       - name: Generate Allure report
         run: ./gradlew allureReport || true # Добавлено || true, чтобы игнорировать ошибки
 
+      - name: List allure report files
+        run: ls -R build/allure-results
+
+      - name: Upload Allure results
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-results
+          path: build/allure-results
+
       - name: Upload Allure report
         uses: actions/upload-artifact@v3
         with:
           name: allure-report
-          path: build/allure-results
-
-      - name: List allure results
-        run: ls -R build/allure-results
+          path: build/allure-report

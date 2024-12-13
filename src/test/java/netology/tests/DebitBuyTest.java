@@ -36,7 +36,6 @@ public class DebitBuyTest {
     @Test
     void buyPositiveAllFieldValidApproved() {
         val startPage = new DebitBuy();
-        System.out.println("Inputting data...");
         startPage.inputData(DataHelper.getApprovedCard());
         startPage.waitNotificationApproved();
         assertEquals("APPROVED", BdSqlHelper.getPaymentStatus());
