@@ -20,7 +20,7 @@ jobs:
         run: java -jar ./artifacts/app-replan-delivery.jar &
 
       - name: Build with Gradle
-        run: ./gradlew test --info -Dselenide.headless=true || true # Игнорировать ошибки тестов
+        run: ./gradlew test --info -Dselenide.headless=true
 
       - name: Check allure results
         run: |
@@ -32,16 +32,13 @@ jobs:
           fi
 
       - name: Generate Allure report
-        run: ./gradlew allureReport || true # Игнорировать ошибки при генерации отчета
+        run: ./gradlew allureReport
 
-      - name: List allure results after report generation
-        run: ls -R build/allure-results || echo "No allure results found"
-
-      - name: Upload Allure results
+      - name: Upload Allure report
         uses: actions/upload-artifact@v3
         with:
           name: allure-report
           path: build/allure-results
 
-      - name: List allure results before upload
-        run: ls -R build/allure-results || echo "No allure results found"
+      - name: List allure results
+        run: ls -R build/allure-results
