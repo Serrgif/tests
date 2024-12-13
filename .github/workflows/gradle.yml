@@ -21,6 +21,9 @@ jobs:
 
       - name: Waiting for container start
         run: sleep 10
+
+      - name: Start SUT
+        run: java -jar ./artifacts/aqa-shop.jar &
         
       - name: Build and run tests
         run: ./gradlew test --info -Dselenide.headless=true
