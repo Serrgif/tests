@@ -4,7 +4,6 @@ on: [push, pull_request]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -14,21 +13,14 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Container start
-        uses: hoverkraft-tech/compose-action@v2.0.1
-
-      - name: Waiting for container start
-        run: sleep 10
-
       - name: Start SUT
-        run: java -jar ./artifacts/aqa-shop.jar -P:jdbc.url=jdbc:mysql://localhost:3306/db -P:jdbc.user=app -P:jdbc.password=pass &
+        run: java -jar ./artifacts/app-replan-delivery.jar &
 
       - name: Build with Gradle
-        run: ./gradlew test -Dselenide.headless=true --info || true # Добавлено || true, чтобы игнорировать ошибки
+        run: ./gradlew test --info -Dselenide.headless=true || true # Игнорировать ошибки тестов
 
       - name: Check allure results
         run: |
@@ -40,19 +32,13 @@ jobs:
           fi
 
       - name: Generate Allure report
-        run: ./gradlew allureReport || true # Добавлено || true, чтобы игнорировать ошибки
-
-      - name: List allure report files
-        run: ls -R build/allure-results
+        run: ./gradlew allureReport || true # Игнорировать ошибки при генерации отчета
 
       - name: Upload Allure results
         uses: actions/upload-artifact@v3
         with:
-          name: allure-results
+          name: allure-report
           path: build/allure-results
 
-      - name: Upload Allure report
-        uses: actions/upload-artifact@v3
-        with:
-          name: allure-report
-          path: build/allure-report
+      - name: List allure results
+        run: ls -R build/allure-results
