@@ -41,9 +41,8 @@ dependencies {
     implementation 'org.slf4j:slf4j-simple:2.0.7'
     implementation 'commons-dbutils:commons-dbutils:1.7'
     implementation 'io.github.bonigarcia:webdrivermanager:5.7.0'
-    implementation group: 'io.qameta.allure', name: 'allure-testng', version: '2.18.1' // Добавление Allure для TestNG
-    implementation group: 'io.qameta.allure', name: 'allure-selenide', version: '2.18.1' // Добавление Allure для Selenide
-}
+    testImplementation 'io.qameta.allure:allure-selenide:2.20.1'
+    }
 
 test {
     useJUnitPlatform()

@@ -32,13 +32,16 @@ jobs:
           fi
 
       - name: Generate Allure report
-        run: ./gradlew allureReport
+        run: ./gradlew allureReport || true # Игнорировать ошибки при генерации отчета
 
-      - name: Upload Allure report
+      - name: List allure results after report generation
+        run: ls -R build/allure-results || echo "No allure results found"
+
+      - name: Upload Allure results
         uses: actions/upload-artifact@v3
         with:
           name: allure-report
           path: build/allure-results
 
-      - name: List allure results
-        run: ls -R build/allure-results
+      - name: List allure results before upload
+        run: ls -R build/allure-results || echo "No allure results found"
