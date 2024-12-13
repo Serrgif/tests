@@ -40,4 +40,11 @@ public class DebitBuyTest {
         startPage.waitNotificationApproved();
         assertEquals("APPROVED", BdSqlHelper.getPaymentStatus());
     }
+    @Test
+    void buyPositiveAllFieldValidApproved1() {
+        val startPage = new DebitBuy();
+        startPage.inputData(DataHelper.getApprovedCard());
+        startPage.waitNotificationApproved();
+        assertEquals("DECLINE", BdSqlHelper.getPaymentStatus());
+    }
 }
