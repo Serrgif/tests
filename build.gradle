@@ -1,37 +1,40 @@
 plugins {
     id 'java'
+    id 'io.freefair.lombok' version '8.2.2'
+    id 'io.qameta.allure' version '2.11.2'
 }
-
 group = 'ru.netology'
 version = '1.0-SNAPSHOT'
+sourceCompatibility = 11
+
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+
+allure {
+    version = '2.20.1'
+    useJUnit5 {
+        version = '2.20.1'
+    }
+}
 
 repositories {
     mavenCentral()
 }
 
+
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.7.0'
 
-    compileOnly 'org.projectlombok:lombok:1.18.32'
-    annotationProcessor 'org.projectlombok:lombok:1.18.32'
-    testCompileOnly 'org.projectlombok:lombok:1.18.32'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.32'
+    testImplementation 'com.codeborne:selenide:6.17.2'
 
-    implementation 'mysql:mysql-connector-java:8.0.33'
-    testImplementation 'org.testng:testng:7.7.1' // Обновлено до 7.7.1
-    implementation 'com.codeborne:selenide:6.16.0' // Обновлено до 6.16.0
-    testImplementation 'io.rest-assured:rest-assured:5.2.0' // Обновлено до 5.2.0
-    implementation 'com.google.code.gson:gson:2.10.1' // Обновлено до 2.10.1
-    implementation 'org.postgresql:postgresql:42.6.0' // Обновлено до 42.6.0
-    implementation 'com.github.javafaker:javafaker:1.0.2'
-    implementation 'org.slf4j:slf4j-simple:2.0.7'
+    testCompileOnly 'org.projectlombok:lombok:1.18.24'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
 
-    // Удалены дублирующиеся и устаревшие зависимости
-    // Используйте последнюю версию
-    implementation 'commons-dbutils:commons-dbutils:1.7'
-    implementation 'io.github.bonigarcia:webdrivermanager:5.7.0' // Обновлено до 5.7.0
-}
+    testImplementation 'mysql:mysql-connector-java:8.0.30'
+    testImplementation 'com.github.javafaker:javafaker:1.0.2'
+    testImplementation 'commons-dbutils:commons-dbutils:1.7'
+    testImplementation 'io.qameta.allure:allure-selenide:2.20.1'
+    }
 
 test {
     useJUnitPlatform()
@@ -39,4 +42,5 @@ test {
     systemProperty 'db.url', System.getProperty('db.url', 'jdbc:mysql://localhost:3306/app')
     systemProperty 'db.user', System.getProperty('db.user', "app")
     systemProperty 'db.password', System.getProperty('db.password', "pass")
+    systemProperty 'chromeoptions.prefs', System.getProperty('chromeoptions.prefs', "profile.password_manager_leak_detection=false")
 }

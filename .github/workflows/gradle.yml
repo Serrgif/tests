@@ -29,3 +29,23 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew test -Dselenide.headless=true --info
+      - name: Check allure results
+        run: |
+          if [ -d build/allure-results ]; then
+            echo "Allure results directory exists"
+            ls build/allure-results
+          else
+            echo "Allure results directory does not exist"
+          fi
+
+      - name: Generate Allure report
+        run: ./gradlew allureReport
+
+      - name: Upload Allure report
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-report
+          path: build/allure-results
+
+      - name: List allure results
+        run: ls -R build/allure-results
