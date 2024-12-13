@@ -13,20 +13,6 @@ import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DebitBuyTest {
-    @BeforeEach
-    void setup() {
-        open("http://localhost:9999");
-    }
-
-    @BeforeEach
-    public void openPage() {
-        open("http://localhost:8080");
-    }
-
-    @AfterEach
-    public void cleanBase() {
-        BdSqlHelper.clearDB();
-    }
     @BeforeAll
     static void setUpAll() {
         SelenideLogger.addListener("allure", new AllureSelenide());
@@ -36,9 +22,21 @@ public class DebitBuyTest {
     static void tearDownAll() {
         SelenideLogger.removeListener("allure");
     }
+
+    @BeforeEach
+    void setup() {
+        open("http://localhost:8080"); // Убедитесь, что это правильный URL
+    }
+
+    @AfterEach
+    public void cleanBase() {
+        BdSqlHelper.clearDB();
+    }
+
     @Test
     void buyPositiveAllFieldValidApproved() {
         val startPage = new DebitBuy();
+        System.out.println("Inputting data...");
         startPage.inputData(DataHelper.getApprovedCard());
         startPage.waitNotificationApproved();
         assertEquals("APPROVED", BdSqlHelper.getPaymentStatus());
