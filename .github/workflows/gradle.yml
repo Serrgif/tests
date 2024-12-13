@@ -31,8 +31,11 @@ jobs:
       - name: Generate Allure Report
         run: ./gradlew allureReport
 
+      - name: List files in build directory
+        run: ls -R build/
+
       - name: Upload Allure Report
-        uses: actions/upload-artifact@v3  # Обновленная версия
+        uses: actions/upload-artifact@v3
         with:
           name: allure-report
           path: build/allure-report
