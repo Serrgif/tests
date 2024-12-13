@@ -37,13 +37,13 @@ jobs:
             echo "Allure results directory does not exist"
           fi
 
-      - name: Generate Allure report
-        run: ./gradlew allureReport
-
       - name: Install Allure Commandline
         run: |
           sudo apt-get update
-          sudo apt-get install -y allure
+          sudo apt-get install -y unzip
+          wget -q https://github.com/allure-framework/allure2/releases/download/2.18.1/allure-2.18.1.zip
+          unzip allure-2.18.1.zip -d /opt/
+          sudo ln -s /opt/allure-2.18.1/bin/allure /usr/bin/allure
 
       - name: Generate Allure HTML report
         run: allure generate build/allure-results --output build/allure-report
