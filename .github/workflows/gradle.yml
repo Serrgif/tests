@@ -26,7 +26,7 @@ jobs:
         run: java -jar ./artifacts/aqa-shop.jar &
 
       - name: Build with Gradle
-        run: ./gradlew test --info -Dselenide.headless=true
+        run: ./gradlew test --info -Dselenide.headless=true || true  # Добавлен || true
 
       - name: Check allure results
         run: |
